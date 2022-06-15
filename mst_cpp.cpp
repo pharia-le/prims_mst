@@ -38,6 +38,8 @@
 #include <iterator>
 #include <algorithm>
 #include <fstream>
+#include <limits>
+#include <time.h>
 
 using namespace std;
 
@@ -308,9 +310,9 @@ public:
 
     int GetIdxOfShortestDistanceCity(vector<City> openCities)
     {
-        float shortestDist = INFINITY;
+        float shortestDist = std::numeric_limits<float>::max();
         int tempCityIdx = -1;
-        for (int m = 0; m < openCities.size(); ++m)
+        for (int m = 0; m < static_cast<int>(openCities.size()); ++m)
         {
             if (openCities[m].distance < shortestDist)
             {
@@ -329,7 +331,7 @@ public:
 
     bool NeighborInCities(vector<City> cities, City neighbor)
     {
-        for (int i = 0; i < cities.size(); ++i)
+        for (int i = 0; i < static_cast<int>(cities.size()); ++i)
         {
             if (cities[i].index == neighbor.index)
             {
@@ -342,7 +344,7 @@ public:
 
     vector<City> UpdateNeighborInCities(vector<City> cities, City neighbor)
     {
-        for (int i = 0; i < cities.size(); ++i)
+        for (int i = 0; i < static_cast<int>(cities.size()); ++i)
         {
             if (cities[i].index == neighbor.index)
             {
@@ -371,7 +373,7 @@ vector<City> dijkstras(CityMap& cityMapObj)
     neighbors = cityMapObj.GetNeighbors(currentCity);
 
     // Adding initial neighbor cities to openCities
-    for (int i = 0; i < neighbors.size(); ++i)
+    for (int i = 0; i < static_cast<int>(neighbors.size()); ++i)
     {
         openCities.push_back(neighbors[i]);
     }
@@ -398,7 +400,7 @@ vector<City> dijkstras(CityMap& cityMapObj)
         neighbors = cityMapObj.GetNeighbors(currentCity);
 
         // Check if each neighbor city in closedCities
-        for (int i = 0; i < neighbors.size(); i++)
+        for (int i = 0; i < static_cast<int>(neighbors.size()); i++)
         {
             // Temp variable for current neighbor
             City neighbor = neighbors[i];
@@ -460,7 +462,7 @@ vector<City> primsMST(CityMap& cityMapObj)
     neighbors = cityMapObj.GetNeighbors(currentCity);
 
     // Adding initial neighbor cities to openCities
-    for (int i = 0; i < neighbors.size(); ++i)
+    for (int i = 0; i < static_cast<int>(neighbors.size()); ++i)
     {
         openCities.push_back(neighbors[i]);
     }
@@ -487,7 +489,7 @@ vector<City> primsMST(CityMap& cityMapObj)
         neighbors = cityMapObj.GetNeighbors(currentCity);
 
         // Check if each neighbor city in closedCities
-        for (int i = 0; i < neighbors.size(); i++)
+        for (int i = 0; i < static_cast<int>(neighbors.size()); i++)
         {
             // Temp variable for current neighbor
             City neighbor = neighbors[i];
@@ -585,7 +587,7 @@ int main(void)
     vector<Edge> edges;
     int size = sampleNums[0];
 
-    for (int m = 1; m < sampleNums.size(); m += 3)
+    for (int m = 1; m < static_cast<int>(sampleNums.size()); m += 3)
     {
         Edge newEdge = Edge(sampleNums[m], sampleNums[m + 1], sampleNums[m + 2]);
         edges.push_back(newEdge);
